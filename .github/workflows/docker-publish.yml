@@ -38,7 +38,7 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: umu-art/image-processor-core:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/image-processor-core:latest
 
       - name: Verfy
         run: /usr/bin/docker image list
