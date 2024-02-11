@@ -1,0 +1,72 @@
+openapi: 3.0.3
+
+info:
+  title: My API
+  version: 1.0.0
+
+paths:
+  /api/register-image:
+    post:
+      tags:
+        - images
+      description: Регистрация нового изображения
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterImageDto'
+      responses:
+        200:
+          description: OK
+
+  /api/apply-filter:
+    post:
+      tags:
+        - images
+      description: Применение фильтра к изображению
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyFilterDto'
+      responses:
+        200:
+          description: Изображение с примененным фильтром
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Некорректный фильтр
+        404:
+          description: Изображение не найдено
+
+components:
+  schemas:
+    RegisterImageDto:
+      description: Данные для регистрации нового изображения
+      required:
+        - uuid
+        - image
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        image:
+          type: string
+          format: binary
+
+    ApplyFilterDto:
+      description: Данные для применения фильтра к изображению
+      required:
+        - uuid
+        - filter
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        filter:
+          type: string
